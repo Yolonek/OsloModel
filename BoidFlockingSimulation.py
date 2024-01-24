@@ -24,8 +24,8 @@ def main():
     # print(simulation_parameters)
 
     check_boundaries = True
-    horizontal_cyclic_boundary = False
-    vertical_cyclic_boundary = False
+    horizontal_cyclic_boundary = True
+    vertical_cyclic_boundary = True
     separation_active = True
     alignment_active = True
     cohesion_active = True
@@ -42,14 +42,15 @@ def main():
                   avoid_range=15,
                   avoid_factor=2,
                   align_range=100,
-                  align_factor=0.10,
+                  align_factor=0.08,
                   cohesion_range=200,
-                  cohesion_factor=0.05,
-                  turn_margin=100,
-                  turn_factor=20)
+                  cohesion_factor=0.01,
+                  turn_margin=80,
+                  turn_factor=15)
 
     draw_options = pymunk.pygame_util.DrawOptions(window)
 
+    fps_time = 0
     while running:
         mouse_rel = pygame.mouse.get_rel()
         events = pygame.event.get()
@@ -99,6 +100,8 @@ def main():
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_n:
                 use_numba = False if use_numba else True
                 print(f'use numba {use_numba}')
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+                print(f'frame time: {fps_time:.6}')
 
         # if simulation_parameters != user_interface.get_parameters():
         #     simulation_parameters = user_interface.get_parameters()
@@ -127,7 +130,7 @@ def main():
                     vertical_wall_active=vertical_wall_active,
                     horizontal_wall_active=horizontal_wall_active
                 )
-            print(f'fps: {time() - start:.6f}')
+            fps_time = time() - start
 
         # user_interface.parameter_changed()
         window.fill((11, 11, 11))

@@ -7,6 +7,7 @@ from scipy.spatial import distance
 from UserInterface import BoidFlockingParameters
 
 
+
 class Boid:
     def __init__(self, position: tuple[int, int], angle: float,
                  scale: float = 1, speed: int = 1):
